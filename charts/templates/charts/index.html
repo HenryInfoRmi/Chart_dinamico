@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+    <style>
+        .btn{
+            display:inline-block;font-weight:400;
+            line-height:1.5;
+            color:#212529;
+            text-align:center;
+            text-decoration:none;
+            vertical-align:middle;
+            cursor:pointer;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            user-select:none;
+            background-color:transparent;
+            border:1px solid transparent;
+            padding:.375rem .75rem;
+            font-size:1rem;
+            border-radius:.25rem;
+            transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            color:#fff;
+            background-color:#0d6efd;
+            border-color:#0d6efd;
+            margin: 0 1%;
+        }
+        .btn:hover{
+            color:#fff;background-color:#0b5ed7;border-color:#0a58ca
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center; margin: auto; width: 90%;">
+        <h2>Projetos</h2>
+        <div style="width: 100%; display: flex;">
+            <div style=" width: 50%; display: flex; height: 300px;">
+                <canvas class="hora_proj" ></canvas>
+            </div>
+            <div style=" width: 50%; display: flex; height: 300px;">
+                <canvas class="med_proj" ></canvas>
+            </div>
+        </div>
+        <h2>Sub Projetos</h2>
+        <div style="width: 100%; display: flex;">
+            <div style="width: 50%; display: flex; height: 300px;">
+                <canvas class="hora_sub_proj" ></canvas>
+            </div>
+            <div style="width: 50%; display: flex; height: 300px;">
+                <canvas class="med_sub_proj" ></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex  " style="width: 90%; align-items: center;  display: flex; margin:30px 5%;">
+    <form action="/" class="d-flex  " style="width: 90%; ">
+        <button class="btn btn-primary" value="line" name="type">Line</button>
+        <button class="btn btn-primary" value="bar" name="type">Bar</button>
+        <button class="btn btn-primary" value="horizontalBar" name="type">Horintal Bar</button>
+
+    </form>
+    </div>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    
+
+
+    <script>
+        var list_hora_pla_sub_pro = {{list_hora_pla_sub_pro}}
+        var list_hora_cos_sub_pro = {{list_hora_cos_sub_pro}}
+        var list_med_hora_sub_pro = {{list_med_hora_sub_pro}}
+        var list_med_task_sub_pro = {{list_med_task_sub_pro}}
+        var list_hora_cos_pro = {{list_hora_cos_pro}}
+        var list_hora_pla_pro = {{list_hora_pla_pro}}
+        var list_med_hora_pro = {{list_med_hora_pro}}
+        var list_med_task_pro = {{list_med_task_pro}} 
+        var use_filter_p = false   
+        var use_filter_sp = false    
+        function p1(evt, item, request_filter){
+                        var label = item
+                        var rfv = true
+                        console.log ('legend onClick', evt);
+                        console.log('legd item', use_filter_sp);
+                        if(use_filter_sp == true){
+                            sp1(evt, item, rfv) 
+                        }
+                        if(label.length == 0 || request_filter == true){
+                            
+                            use_filter_p = false
+                            
+                            chart_phphc.data.datasets[0].backgroundColor =  [
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)'
+                                                            ]
+                            chart_phphc.data.datasets[0].borderColor =  [
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)'
+                                                            ] 
+
+                            chart_phphc.data.datasets[1].backgroundColor =  [
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)'
+                                                            ]
+                            chart_phphc.data.datasets[1].borderColor =  [
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)'
+                                                            ]
+                
+                            chart_phphc.update();
+
+                            chart_pptph.data.datasets[0].backgroundColor =  [
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)'
+                                                            ]
+                            chart_pptph.data.datasets[0].borderColor =  [
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)'
+                                                            ] 
+
+                            chart_pptph.data.datasets[1].backgroundColor =  [
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)'
+                                                            ]
+                            chart_pptph.data.datasets[1].borderColor =  [
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)'
+                                                            ]
+                
+                            chart_pptph.update();
+
+                        chart_sphphc.data.datasets[0].data = list_backup_00
+                        chart_sphphc.data.datasets[1].data = list_backup_01
+                        chart_sphphc.update()
+                        
+                        chart_spptph.data.datasets[1].data = list_backup_11
+                        chart_spptph.data.datasets[0].data = list_backup_10
+                        chart_spptph.update()
+
+
+                        }else{
+
+                        use_filter_p = true
+                        chart_phphc.data.datasets[0].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_phphc.data.datasets[0].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_phphc.data.datasets[0].backgroundColor[label[0]._index] = 'rgba(0, 0, 132, 0.6)'
+                        chart_phphc.data.datasets[0].borderColor[label[0]._index] = 'rgba(0, 0, 132, 1)'
+
+                        chart_phphc.data.datasets[1].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_phphc.data.datasets[1].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_phphc.data.datasets[1].backgroundColor[label[1]._index] = 'rgba(54, 83, 254, 0.6)'
+                        chart_phphc.data.datasets[1].borderColor[label[1]._index] = 'rgba(54, 83, 254, 1)'
+                    
+                        chart_phphc.update();
+
+                        chart_pptph.data.datasets[0].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_pptph.data.datasets[0].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_pptph.data.datasets[0].backgroundColor[label[0]._index] = 'rgba(19, 227, 16, 0.6)'
+                        chart_pptph.data.datasets[0].borderColor[label[0]._index] = 'rgba(19, 227, 16, 1)'
+
+                        chart_pptph.data.datasets[1].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_pptph.data.datasets[1].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_pptph.data.datasets[1].backgroundColor[label[1]._index] = 'rgba(54, 83, 254, 0.6)'
+                        chart_pptph.data.datasets[1].borderColor[label[1]._index] = 'rgba(54, 83, 254, 1)'
+                    
+                        chart_pptph.update();
+                        
+                        chart_sphphc.data.datasets[0].data = list_hora_pla_sub_pro[label[1]._index]
+                        chart_sphphc.data.datasets[1].data = list_hora_cos_sub_pro[label[0]._index]
+                        chart_sphphc.update()
+                        
+                        chart_spptph.data.datasets[1].data = list_med_hora_sub_pro[label[1]._index]
+                        chart_spptph.data.datasets[0].data = list_med_task_sub_pro[label[0]._index]
+                        chart_spptph.update()
+                        }
+                        
+                        
+
+                    }
+        
+
+        function p2(evt, item){
+                        p1(evt,item)
+                    }
+
+        function sp1(evt, item, request_filter){
+                        var label = item
+                        var rfv = true
+                        console.log ('legend onClick', evt);
+                        console.log('legd item', label);
+
+                        if(use_filter_p == true){
+                            p1(evt, item, rfv)
+                        }
+
+                        if(label.length == 0 || request_filter == true){
+                            
+                            use_filter_sp = false
+                            
+                            chart_sphphc.data.datasets[0].backgroundColor =  [
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)',
+                                                            'rgba(0, 0, 132, 0.6)'
+                                                            ]
+                            chart_sphphc.data.datasets[0].borderColor =  [
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)',
+                                                            'rgba(0, 0, 132, 1)'
+                                                            ] 
+
+                            chart_sphphc.data.datasets[1].backgroundColor =  [
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)'
+                                                            ]
+                            chart_sphphc.data.datasets[1].borderColor =  [
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)'
+                                                            ]
+                
+                            chart_sphphc.update();
+
+                            chart_spptph.data.datasets[0].backgroundColor =  [
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)',
+                                                            'rgba(19, 227, 16, 0.6)'
+                                                            ]
+                            chart_spptph.data.datasets[0].borderColor =  [
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)',
+                                                            'rgba(19, 227, 16, 1)'
+                                                            ] 
+
+                            chart_spptph.data.datasets[1].backgroundColor =  [
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)',
+                                                            'rgba(54, 83, 254, 0.6)'
+                                                            ]
+                            chart_spptph.data.datasets[1].borderColor =  [
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)',
+                                                            'rgba(54, 83, 254, 1)'
+                                                            ]
+                
+                            chart_spptph.update();
+
+                            chart_phphc.data.datasets[0].data = list_backup_00_p
+                            chart_phphc.data.datasets[1].data = list_backup_01_p
+                            chart_phphc.update()
+                            
+                            chart_pptph.data.datasets[1].data = list_backup_11_p
+                            chart_pptph.data.datasets[0].data = list_backup_10_p
+                            chart_pptph.update()
+
+
+                        }else{
+
+                        use_filter_sp = true
+                        chart_sphphc.data.datasets[0].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_sphphc.data.datasets[0].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_sphphc.data.datasets[0].backgroundColor[label[0]._index] = 'rgba(0, 0, 132, 0.6)'
+                        chart_sphphc.data.datasets[0].borderColor[label[0]._index] = 'rgba(0, 0, 132, 1)'
+
+                        chart_sphphc.data.datasets[1].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_sphphc.data.datasets[1].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_sphphc.data.datasets[1].backgroundColor[label[1]._index] = 'rgba(54, 83, 254, 0.6)'
+                        chart_sphphc.data.datasets[1].borderColor[label[1]._index] = 'rgba(54, 83, 254, 1)'
+                    
+                        chart_sphphc.update();
+
+                        chart_spptph.data.datasets[0].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_spptph.data.datasets[0].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_spptph.data.datasets[0].backgroundColor[label[0]._index] = 'rgba(19, 227, 16, 0.6)'
+                        chart_spptph.data.datasets[0].borderColor[label[0]._index] = 'rgba(19, 227, 16, 1)'
+
+                        chart_spptph.data.datasets[1].backgroundColor =  [
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)',
+                                                            'rgba(174, 173, 180, 0.6)'
+                                                            ]
+                        chart_spptph.data.datasets[1].borderColor =  [
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)',
+                                                            'rgba(174, 173, 180, 1)'
+                                                            ]
+                        chart_spptph.data.datasets[1].backgroundColor[label[1]._index] = 'rgba(54, 83, 254, 0.6)'
+                        chart_spptph.data.datasets[1].borderColor[label[1]._index] = 'rgba(54, 83, 254, 1)'
+                    
+                        chart_spptph.update();
+
+                        chart_phphc.data.datasets[0].data = list_hora_pla_pro[label[1]._index]
+                        chart_phphc.data.datasets[1].data = list_hora_cos_pro[label[0]._index]
+                        chart_phphc.update()
+                        
+                        chart_pptph.data.datasets[1].data = list_med_hora_pro[label[1]._index]
+                        chart_pptph.data.datasets[0].data = list_med_task_pro[label[0]._index]
+                        chart_pptph.update()
+                        }
+                        
+                        
+
+                    }
+        function sp2(evt, item){
+            sp1(evt, item)
+        }
+        var ctx = document.getElementsByClassName('hora_proj');
+        let data_phphc = {
+                labels: [{% for project in name_pro %}"{{project}}",{% endfor %}
+                ],
+                datasets: [{
+                    label: 'Horas planejadas',
+                    data: [
+                    {% for horapla in hora_pla_pro %}    
+                    {{horapla}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)'
+                    ],
+                    borderWidth: 1
+                },{
+                    label: 'Horas Consumidas',
+                    data: [
+                    {% for horacos in hora_cos_pro %}    
+                    {{horacos}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+
+            
+
+            
+
+        
+        var chart_phphc = new Chart(ctx, {
+            type: '{{type}}',
+            data: data_phphc ,
+            options:{
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick : p1
+                
+                
+            }   
+        });
+
+
+        
+
+        var ctx = document.getElementsByClassName('med_proj');
+        var data = {
+                labels: [{% for project in name_pro %}"{{project}}",{% endfor %}
+                ],
+                datasets: [{
+                    label: 'Porcentagem de tarefas finalizadas',
+                    data: [
+                    {% for medtask in med_task_pro %}    
+                    {{medtask}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)'
+                    ],
+                    borderWidth: 1
+                },{
+                    label: 'Porcentagem de horas consumidas',
+                    data: [
+                    {% for medhora in med_hora_pro %}    
+                    {{medhora}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+
+        
+        var chart_pptph = new Chart(ctx, {
+            type: '{{type}}',
+            data: data ,
+            options:{
+                
+                scales: {
+            
+                {{axi}}Axes: [{
+                    ticks: {
+                    
+                        min: 0,
+                        max: 100,
+                        callback: function(value){return value+ "%"}
+                        },  
+				    				scaleLabel: {
+                        display: true,
+                        labelString: "Percentage"
+                        }
+                        }]
+                },
+    
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick : p2
+            }   
+        });
+        
+        var ctx = document.getElementsByClassName('hora_sub_proj');
+        var data = {
+                labels: [{% for project in name_sub_pro %}"{{project}}",{% endfor %}
+                ],
+                datasets: [{
+                    label: 'Horas planejadas',
+                    data: [
+                    {% for horapla in hora_pla_sub_pro %}    
+                    {{horapla}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)',
+                        'rgba(0, 0, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)',
+                        'rgba(0, 0, 132, 1)'
+                    ],
+                    borderWidth: 1
+                },{
+                    label: 'Horas Consumidas',
+                    data: [
+                    {% for horacos in hora_cos_sub_pro %}    
+                    {{horacos}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+
+        
+        var chart_sphphc = new Chart(ctx, {
+            type: '{{type}}',
+            data: data ,
+            options:{
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick: sp1
+                
+            }   
+        });
+
+        var ctx = document.getElementsByClassName('med_sub_proj');
+        var data = {
+                labels: [{% for project in name_sub_pro %}"{{project}}",{% endfor %}
+                ],
+                datasets: [{
+                    label: 'Horas planejadas',
+                    data: [
+                    {% for horapla in med_task_sub_pro %}    
+                    {{horapla}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)',
+                        'rgba(19, 227, 16, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)',
+                        'rgba(19, 227, 16, 1)'
+                    ],
+                    borderWidth: 1
+                },{
+                    label: 'Horas Consumidas',
+                    data: [
+                    {% for horacos in med_hora_sub_pro %}    
+                    {{horacos}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: [
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)',
+                        'rgba(54, 83, 254, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)',
+                        'rgba(54, 83, 254, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+
+        
+        var chart_spptph = new Chart(ctx, {
+            type: '{{type}}',
+            data: data ,
+            options:{
+                
+                scales: {
+            
+                {{axi}}Axes: [{
+                    ticks: {
+                    
+                        min: 0,
+                        max: 100,
+                        callback: function(value){return value+ "%"}
+                        },  
+				    				scaleLabel: {
+                        display: true,
+                        labelString: "Percentage"
+                        }
+                        }]
+                },
+    
+                responsive: true,
+                maintainAspectRatio: false,
+                onClick : sp2
+            
+            }   
+        });
+       
+        var list_backup_00=chart_sphphc.data.datasets[0].data        
+        var list_backup_01=chart_sphphc.data.datasets[1].data
+        var list_backup_11=chart_spptph.data.datasets[1].data
+        var list_backup_10=chart_spptph.data.datasets[0].data
+        var list_backup_00_p=chart_phphc.data.datasets[0].data        
+        var list_backup_01_p=chart_phphc.data.datasets[1].data
+        var list_backup_11_p=chart_pptph.data.datasets[1].data
+        var list_backup_10_p=chart_pptph.data.datasets[0].data
+
+    </script>
+</body>
+</html>
